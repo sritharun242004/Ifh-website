@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>IFH Connects — Rent, stay or find an office</title>
+  <meta name="description" content="Find IFH-verified long-stay homes, short stays and office spaces in one clear, broker-free property platform.">
+  <meta name="theme-color" content="#9fe870">
+  <meta property="og:title" content="IFH Connects — Rent, stay or find an office">
+  <meta property="og:description" content="Find IFH-verified long-stay homes, short stays and office spaces in one clear, broker-free property platform.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Lime progress bar above the navbar -->
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- ===== Header / sticky navbar ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="IFH Connects — home">
+        <img src="assets/logo.png" alt="" width="49" height="32">
+        <span class="brand-text"><span class="brand-name">IFH Connects</span><span class="brand-cap">Rent, stay or find an office</span></span>
+      </a>
+      <nav aria-label="Main">
+        <div class="nav-links">
+          <a href="/why-ifh" data-nav>Why IFH</a>
+          <a href="/tenant" data-nav>Tenant</a>
+          <a href="/property-owner" data-nav>Property Owner</a>
+        </div>
+      </nav>
+      <a class="btn nav-cta" href="/tenant">Get started <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="drawer" aria-label="Open menu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" ><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </header>
+
+  <!-- Mobile drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true" role="dialog" aria-label="Menu">
+    <div class="drawer-top">
+      <a class="brand" href="/"><img src="assets/logo.png" alt="" width="49" height="32"><span class="brand-text"><span class="brand-name">IFH Connects</span></span></a>
+      <button class="menu-btn" id="drawer-close" aria-label="Close menu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" ><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <a class="drawer-link" href="/why-ifh" data-nav>Why IFH</a>
+    <a class="drawer-link" href="/tenant" data-nav>Tenant</a>
+    <a class="drawer-link" href="/property-owner" data-nav>Property Owner</a>
+    <a class="btn" href="/tenant">Get started</a>
+  </div>
+
+  <main id="main">
+
+    <!-- Hero -->
+    <section class="hero hero-home" aria-labelledby="home-h">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Zero brokerage · IFH verified</span>
+          <h1 class="hero-title" id="home-h">Verified homes, short stays and <span class="mark">offices</span></h1>
+          <p class="lead">Rent a home, book a short stay or find an office. Browse IFH-verified listings and connect directly with owners.</p>
+
+          <ul class="trust-row">
+            <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true" ><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 14l2 2 4-4"/></svg>Clear property details</li>
+            <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true" ><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>Trust-first search</li>
+            <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true" ><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 11l2 2 4-4"/></svg>One account</li>
+          </ul>
+        </div>
+
+        <!-- 3D iPhone (js/phone.js). The image is the fallback if WebGL is unavailable. -->
+        <div class="phone-stage" data-phone-stage tabindex="0" role="img" aria-label="3D iPhone showing the IFH app. Drag or use the arrow keys to rotate.">
+          <img class="phone-fallback" src="assets/img/app-screen.png" alt="IFH Connects app showing rentals in Bengaluru" width="780" height="2074">
+          <canvas aria-hidden="true"></canvas>
+          <span class="drag-hint" aria-hidden="true">↔ Drag to rotate 360°</span>
+          <div class="float-card fc-top"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><small>248 homes</small><strong>IFH verified</strong></div></div>
+          <div class="float-card fc-bottom"><img src="assets/logo.png" alt="" width="40" height="26"><div><strong>IFH Connects</strong><small>Zero brokerage, always</small></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who are you? -->
+    <section class="section doorway" aria-labelledby="who-h">
+      <div class="container">
+        <div class="doorway-head reveal">
+          <span class="pill">Who are you?</span>
+          <h2 id="who-h">Pick your <span class="mark">doorway</span></h2>
+          <p>Choose how you want to find your next space. We’ve got you covered.</p>
+        </div>
+        <div class="grid door-grid">
+          <a class="door reveal" href="/tenant">
+            <img src="assets/img/1502672260266-1c1ef2d93688-1000.jpg" alt="A bright, furnished living room" loading="lazy">
+            <div class="door-top"><span class="door-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21V12h6v9"/></svg></span><span class="door-tag">Tenant</span></div>
+            <div class="door-body">
+              <h3>Looking for<br>a place</h3>
+              <p>Browse verified homes, short stays and offices for free. Pay only to reach an owner.</p>
+              <span class="door-cta"><span class="go"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span><span class="door-cta-label">Find a place</span></span>
+            </div>
+          </a>
+          <a class="door reveal" href="/property-owner">
+            <img src="assets/img/1600596542815-ffad4c1539a9-1000.jpg" alt="A modern independent house" loading="lazy">
+            <div class="door-top"><span class="door-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><span class="door-tag">Property owner</span></div>
+            <div class="door-body">
+              <h3>I have a place<br>to list</h3>
+              <p>List for free, meet verified tenants and keep every rupee of your rent.</p>
+              <span class="door-cta"><span class="go"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span><span class="door-cta-label">List your property</span></span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Three categories -->
+    <section class="section bg-white" aria-labelledby="cat-h">
+      <div class="container">
+        <div class="section-head reveal"><span class="eyebrow">What you can find</span><h2 class="section-title" id="cat-h">One platform, three kinds of space</h2></div>
+        <div class="grid cat-grid">
+          <div class="card reveal"><div class="icon-box"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" ><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21V12h6v9"/></svg></div><h3>Long-stay homes</h3><p>1, 2 and 3 BHK homes, PGs and villas, listed directly by their owners.</p></div>
+          <div class="card reveal"><div class="icon-box"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" ><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></div><h3>Short stays</h3><p>From a single night where the owner allows it, with minimum-night rules on each listing.</p></div>
+          <div class="card reveal"><div class="icon-box"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" ><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3"/></svg></div><h3>Office spaces</h3><p>Dedicated desks, meeting rooms and full offices you can compare side by side.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-ink on-dark" aria-labelledby="broker-h">
+      <div class="container">
+        <span class="eyebrow reveal">The brokerage maths</span>
+        <h2 class="section-title reveal" id="broker-h" style="max-width:24ch;font-size:clamp(30px,4.4vw,56px);font-weight:900;letter-spacing:-.03em;line-height:1.05">A month's rent is the going rate for brokerage. <em>We charge a fixed fee instead.</em></h2>
+        <div class="compare">
+          <div class="reveal"><span class="who">Through a broker</span><span class="big">One to two months' rent</span></div>
+          <div class="ifh reveal"><span class="who">Through IFH</span><span class="big">₹0</span></div>
+        </div>
+        <p class="reveal" style="margin-top:28px"><a class="btn" href="/why-ifh">Why IFH <svg class="i" viewBox="0 0 24 24" aria-hidden="true" ><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></p>
+      </div>
+    </section>
+
+    <section class="section bg-white" aria-labelledby="cities-h">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Rentals by city</span>
+          <h2 class="section-title" id="cities-h">Where renters are moving</h2>
+        </div>
+        <div class="grid city-grid">
+          <a class="city reveal" href="/tenant#listings"><img src="assets/img/1480714378408-67cf0d13bc1b-500.jpg" alt="Bengaluru homes for rent" loading="lazy" width="500" height="667"><span>Bengaluru <svg class="i" viewBox="0 0 24 24" aria-hidden="true" ><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
+          <a class="city reveal" href="/tenant#listings"><img src="assets/img/1522708323590-d24dbb6b0267-500.jpg" alt="Chennai homes for rent" loading="lazy" width="500" height="667"><span>Chennai <svg class="i" viewBox="0 0 24 24" aria-hidden="true" ><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
+          <a class="city reveal" href="/tenant#listings"><img src="assets/img/1512917774080-9991f1c4c750-500.jpg" alt="Mumbai homes for rent" loading="lazy" width="500" height="667"><span>Mumbai <svg class="i" viewBox="0 0 24 24" aria-hidden="true" ><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
+          <a class="city reveal" href="/tenant#listings"><img src="assets/img/1560448204-e02f11c3d0e2-500.jpg" alt="Hyderabad homes for rent" loading="lazy" width="500" height="667"><span>Hyderabad <svg class="i" viewBox="0 0 24 24" aria-hidden="true" ><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
+          <a class="city reveal" href="/tenant#listings"><img src="assets/img/1600596542815-ffad4c1539a9-500.jpg" alt="Pune homes for rent" loading="lazy" width="500" height="667"><span>Pune <svg class="i" viewBox="0 0 24 24" aria-hidden="true" ><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
+          <a class="city reveal" href="/tenant#listings"><img src="assets/img/1502672260266-1c1ef2d93688-500.jpg" alt="Coimbatore homes for rent" loading="lazy" width="500" height="667"><span>Coimbatore <svg class="i" viewBox="0 0 24 24" aria-hidden="true" ><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ (same questions as Why IFH) -->
+    <section class="section bg-sage" id="faq" aria-labelledby="home-faq-h">
+      <div class="container faq-wrap">
+        <div class="reveal">
+          <span class="eyebrow">Before you ask</span>
+          <h2 class="section-title" id="home-faq-h">Questions people actually have</h2>
+        </div>
+        <div class="faq reveal">
+          <div class="faq-item">
+            <h3><button class="faq-q" id="home-q0" aria-expanded="false" aria-controls="home-a0">Is there really no brokerage?<span class="pm" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="home-a0" role="region" aria-labelledby="home-q0"><p>No brokerage, ever. You browse and shortlist for free, and pay a fixed connection fee only when you choose to unlock an owner's contact details. The owner pays nothing and never owes a commission on rent.</p></div>
+          </div>
+          <div class="faq-item">
+            <h3><button class="faq-q" id="home-q1" aria-expanded="false" aria-controls="home-a1">What does “IFH verified” mean?<span class="pm" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="home-a1" role="region" aria-labelledby="home-q1"><p>That our team has checked the listing against ownership documents and confirmed the property exists as described. Verification covers the listing and the owner's identity — it is not a survey, and it does not inspect condition.</p></div>
+          </div>
+          <div class="faq-item">
+            <h3><button class="faq-q" id="home-q2" aria-expanded="false" aria-controls="home-a2">How quickly do owners reply?<span class="pm" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="home-a2" role="region" aria-labelledby="home-q2"><p>Most reply the same day. Owner response time is shown on each listing, so you can weigh it before you spend a connection on someone who has not logged in for a fortnight.</p></div>
+          </div>
+          <div class="faq-item">
+            <h3><button class="faq-q" id="home-q3" aria-expanded="false" aria-controls="home-a3">Can I book a short stay for one night?<span class="pm" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="home-a3" role="region" aria-labelledby="home-q3"><p>Yes, where the owner allows it. Minimum-night rules are set per property and shown on the listing before you reach payment.</p></div>
+          </div>
+          <div class="faq-item">
+            <h3><button class="faq-q" id="home-q4" aria-expanded="false" aria-controls="home-a4">What happens to my deposit?<span class="pm" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="home-a4" role="region" aria-labelledby="home-q4"><p>Deposits are agreed and paid directly between you and the owner — IFH never holds them. The listing shows the deposit in rupees before you connect, so it is never a surprise at signing.</p></div>
+          </div>
+          <div class="faq-item">
+            <h3><button class="faq-q" id="home-q5" aria-expanded="false" aria-controls="home-a5">I am an owner. What does listing cost?<span class="pm" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="home-a5" role="region" aria-labelledby="home-q5"><p>Nothing. Listing, photographs, enquiries and the owner dashboard are free, and there is no commission on your rent. We are paid by tenants who choose to connect.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-pale cta-band" aria-labelledby="cta-h">
+      <div class="container">
+        <h2 id="cta-h" class="reveal">Find your place. Skip the broker.</h2>
+        
+        <div class="btn-row reveal"><a class="btn" href="/tenant#listings">Browse homes</a><a class="btn btn-secondary" href="/property-owner">List your property</a></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <!-- Left: big serif line + small print -->
+      <div class="footer-lead">
+        <p class="footer-serif">Find your place. Skip the broker.</p>
+        <div class="footer-meta">
+          <span>I Find House</span>
+          <span>© 2026 IFH Connects · All prices in INR</span>
+          <span class="footer-tag">Zero brokerage, always</span>
+        </div>
+      </div>
+      <!-- Right: link columns -->
+      <div class="footer-grid">
+        <div>
+          <h3>Rent a home</h3>
+          <ul>
+            <li><a href="/tenant#find">All rental homes</a></li>
+            <li><a href="/tenant#find">1 BHK</a></li>
+            <li><a href="/tenant#find">2 BHK</a></li>
+            <li><a href="/tenant#find">3 BHK</a></li>
+            <li><a href="/tenant#find">PG &amp; co-living</a></li>
+            <li><a href="/tenant#find">Villas</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Workspaces</h3>
+          <ul>
+            <li><a href="/tenant#find">All offices</a></li>
+            <li><a href="/tenant#find">With meeting rooms</a></li>
+            <li><a href="/tenant#find">Dedicated desks</a></li>
+            <li><a href="/tenant#find">Compare spaces</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>For owners</h3>
+          <ul>
+            <li><a href="/property-owner">List your property</a></li>
+            <li><a href="/property-owner">Owner dashboard</a></li>
+            <li><a href="/property-owner">Run a deal</a></li>
+            <li><a href="/tenant#pricing">Pricing</a></li>
+            <li><a href="/property-owner#faq">Owner support</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>IFH Connects</h3>
+          <ul>
+            <li><a href="/why-ifh">About us</a></li>
+            <li><a href="/property-owner">Journal</a></li>
+            <li><a href="/why-ifh#faq">Help centre</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Full logo lockup -->
+    <a class="footer-mark" href="/" aria-label="IFH Connects — home">
+      <img src="assets/logo.png" alt="" width="1174" height="774">
+      <span class="footer-mark-text"><strong>IFH Connects</strong><small>Rent, stay or find an office</small></span>
+    </a>
+  </footer>
+
+  <!-- Floating assistant button -->
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/phone.js"></script>
+</body>
+</html>

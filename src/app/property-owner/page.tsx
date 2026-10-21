@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Faq } from "@/components/Faq";
+import { LeadSection } from "@/components/LeadSection";
 import { FeatureStack } from "@/components/FeatureStack";
 import { WhyRail } from "@/components/WhyRail";
 import { Icon } from "@/components/Icon";
@@ -263,11 +263,11 @@ export default function PropertyOwnerPage() {
         </div>
       </section>
 
-      <Faq
-        id="owner-faq"
-        eyebrow="Owner FAQ"
-        title="Owners ask, we answer"
-        items={[FAQ.listingCost, FAQ.verified, FAQ.broker, FAQ.deposit]}
+      <LeadSection
+        kind="owner"
+        faqEyebrow="Owner FAQ"
+        faqTitle="Owners ask, we answer"
+        faqItems={[FAQ.listingCost, FAQ.verified, FAQ.broker, FAQ.deposit]}
       />
 
       <CtaBand

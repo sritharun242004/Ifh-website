@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Faq } from "@/components/Faq";
+import { LeadSection } from "@/components/LeadSection";
 import { FeatureStack } from "@/components/FeatureStack";
 import { FocusSlider } from "@/components/FocusSlider";
 import { Icon, type IconName } from "@/components/Icon";
@@ -37,7 +37,6 @@ const FIND: {
     links: ["All offices", "With meeting rooms", "Dedicated desks", "Compare spaces"],
   },
 ];
-
 
 type Listing = {
   image: string;
@@ -209,8 +208,8 @@ export default function TenantPage() {
             Find your next space. Skip <span className="mark">the broker.</span>
           </h1>
           <p className="lead">
-            Browse every IFH-verified home and office for free — no account needed. Pay
-            only when you want to talk to an owner.
+            Browse every IFH-verified home and office for free — no account needed. Pay only when
+            you want to talk to an owner.
           </p>
           <div className="btn-row">
             <a className="btn" href="#listings">
@@ -225,11 +224,7 @@ export default function TenantPage() {
 
       <section className="section bg-sage" id="find" aria-labelledby="find-h">
         <div className="container">
-          <SectionHead
-            id="find-h"
-            eyebrow="What you can find"
-            title="Homes and workspaces"
-          />
+          <SectionHead id="find-h" eyebrow="What you can find" title="Homes and workspaces" />
           <div className="find-grid">
             {FIND.map((group) => (
               <article key={group.title} className="find-card reveal">
@@ -354,12 +349,7 @@ export default function TenantPage() {
           <div className="steps-photo">
             {STEPS.map((step, i) => (
               <article key={step.title} className="step-photo reveal">
-                <Image
-                  src={step.image}
-                  alt=""
-                  fill
-                  sizes="(min-width: 900px) 33vw, 100vw"
-                />
+                <Image src={step.image} alt="" fill sizes="(min-width: 900px) 33vw, 100vw" />
                 <div className="step-photo-body">
                   <span className="step-kicker">Step {String(i + 1).padStart(2, "0")}</span>
                   <h3>{step.title}</h3>
@@ -446,11 +436,11 @@ export default function TenantPage() {
         </div>
       </section>
 
-      <Faq
-        id="tenant-faq"
-        eyebrow="Tenant FAQ"
-        title="Questions renters ask"
-        items={[FAQ.broker, FAQ.verified, FAQ.reply, FAQ.deposit]}
+      <LeadSection
+        kind="tenant"
+        faqEyebrow="Tenant FAQ"
+        faqTitle="Questions renters ask"
+        faqItems={[FAQ.broker, FAQ.verified, FAQ.reply, FAQ.deposit]}
       />
     </>
   );

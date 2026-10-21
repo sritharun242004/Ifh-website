@@ -3206,9 +3206,7 @@ a.post:hover {
   }
   /* Trim the empty space under the phone so the whole hero fits the first screen */
   .hero-home .hero-grid {
-    margin-bottom: calc(
-      (var(--stage-h) * (1 - var(--phone-fill)) - var(--phone-top) - 70px) * -1
-    );
+    margin-bottom: calc((var(--stage-h) * (1 - var(--phone-fill)) - var(--phone-top) - 70px) * -1);
   }
   /* Lead + trust points sit beside the phone, their bottoms level with the phone's bottom */
   .hero-home .lead,
@@ -3459,7 +3457,14 @@ a.post:hover {
 
 /* Hero keywords: green text with a slow colour shift */
 .hl-green {
-  background: linear-gradient(100deg, #5fbf2a 0%, #9fe870 30%, #cdffad 50%, #9fe870 70%, #5fbf2a 100%);
+  background: linear-gradient(
+    100deg,
+    #5fbf2a 0%,
+    #9fe870 30%,
+    #cdffad 50%,
+    #9fe870 70%,
+    #5fbf2a 100%
+  );
   background-size: 250% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -4777,10 +4782,10 @@ a.post:hover {
   }
   /* open item: hovered, focused, or the first one while nothing is hovered */
   :is(
-      .why-item:hover,
-      .why-item:focus-within,
-      .why-rail:not(:hover, :focus-within) .why-item:first-child
-    ) {
+    .why-item:hover,
+    .why-item:focus-within,
+    .why-rail:not(:hover, :focus-within) .why-item:first-child
+  ) {
     flex-grow: 3.4;
     border-image: linear-gradient(90deg, #163300, #5fbf2a 55%, #9fe870) 1;
     border-top-width: 2px;
@@ -4820,7 +4825,12 @@ a.post:hover {
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(90deg, rgba(14, 15, 12, 0.72) 0%, rgba(14, 15, 12, 0.38) 55%, rgba(14, 15, 12, 0.12) 100%),
+    linear-gradient(
+      90deg,
+      rgba(14, 15, 12, 0.72) 0%,
+      rgba(14, 15, 12, 0.38) 55%,
+      rgba(14, 15, 12, 0.12) 100%
+    ),
     linear-gradient(180deg, rgba(14, 15, 12, 0.25), rgba(14, 15, 12, 0) 30%);
 }
 .hero-owner .hero-title {
@@ -5033,13 +5043,12 @@ section[aria-labelledby="otools-h"] .eyebrow {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(12, 14, 10, 0.5) 0%,
-      rgba(12, 14, 10, 0.2) 36%,
-      rgba(12, 14, 10, 0) 58%
-    );
+  background: linear-gradient(
+    90deg,
+    rgba(12, 14, 10, 0.5) 0%,
+    rgba(12, 14, 10, 0.2) 36%,
+    rgba(12, 14, 10, 0) 58%
+  );
 }
 .villa-content {
   position: relative;
@@ -5290,7 +5299,12 @@ section[aria-labelledby="otools-h"] .eyebrow {
   }
   .villa-scrim {
     background:
-      linear-gradient(180deg, rgba(12, 14, 10, 0.55) 0%, rgba(12, 14, 10, 0.25) 34%, rgba(12, 14, 10, 0) 52%),
+      linear-gradient(
+        180deg,
+        rgba(12, 14, 10, 0.55) 0%,
+        rgba(12, 14, 10, 0.25) 34%,
+        rgba(12, 14, 10, 0) 52%
+      ),
       linear-gradient(0deg, rgba(12, 14, 10, 0.5) 0%, rgba(12, 14, 10, 0) 24%);
   }
   .villa-progress {
@@ -5521,5 +5535,162 @@ main {
 @media (max-width: 899px) {
   .villa-content {
     padding-top: calc(var(--hdr, 0px) + 96px);
+  }
+}
+
+/* ---------- Lead form + FAQ (tenant / owner pages) ---------- */
+.lead-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+.lead-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: clamp(24px, 3.5vw, 40px);
+  box-shadow: 0 24px 48px -32px rgba(22, 51, 0, 0.35);
+}
+.lead-card .section-title,
+.lead-faq .section-title {
+  font-size: var(--fs-h2);
+  margin-bottom: var(--space-3);
+}
+.lead-sub {
+  margin-bottom: var(--space-6);
+}
+.lead-faq {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  position: sticky;
+  top: 112px;
+}
+.lead-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4) var(--space-4);
+  margin-bottom: var(--space-6);
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.field-wide,
+.field-group {
+  grid-column: 1 / -1;
+}
+.field label,
+.field legend {
+  font-size: var(--fs-body-s);
+  font-weight: 600;
+  color: var(--ink);
+  padding: 0;
+  margin-bottom: 6px;
+}
+.field input[type="text"],
+.field input[type="email"],
+.field input[type="tel"],
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface-tint);
+  border: 1px solid var(--border);
+  border-radius: var(--r-input);
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
+}
+.field textarea {
+  resize: vertical;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--green-ink);
+  box-shadow: var(--focus-ring);
+}
+.field [aria-invalid="true"] {
+  border-color: var(--danger);
+}
+.field-error {
+  color: var(--danger-deep);
+  font-size: var(--fs-body-s);
+  margin: 4px 0 0;
+}
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  margin: 0 !important;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  background: var(--surface-tint);
+  font-weight: 500 !important;
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+.chip input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+}
+.chip.is-on {
+  background: var(--green);
+  border-color: var(--green-ink);
+}
+.chip:has(input:focus-visible) {
+  box-shadow: var(--focus-ring);
+}
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.lead-card .btn[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+}
+.lead-card .fine {
+  margin-top: var(--space-3);
+}
+.lead-done {
+  padding: 24px 0;
+}
+@media (max-width: 960px) {
+  .lead-grid {
+    grid-template-columns: 1fr;
+  }
+  .lead-faq {
+    position: static;
+  }
+}
+@media (max-width: 560px) {
+  .lead-fields {
+    grid-template-columns: 1fr;
   }
 }

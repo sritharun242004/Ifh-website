@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { FaqList } from "@/components/Faq";
 import { FORMS, type Field, type LeadKind } from "@/content/forms";
 import type { FaqItem } from "@/content/site";
@@ -21,6 +21,8 @@ export function LeadSection({ kind, faqEyebrow, faqTitle, faqItems }: Props) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<Status>("idle");
   const [formError, setFormError] = useState("");
+  const card = useRef<HTMLDivElement>(null);
+  const [doneHeight, setDoneHeight] = useState<number>();
 
   const set = (name: string, value: string | string[]) => {
     setValues((v) => ({ ...v, [name]: value }));
@@ -52,7 +54,12 @@ export function LeadSection({ kind, faqEyebrow, faqTitle, faqItems }: Props) {
       });
       const json = await res.json().catch(() => ({}));
       if (res.ok) {
+        // Keep the card as tall as the form was, so the page doesn't collapse under the reader.
+        setDoneHeight(card.current?.offsetHeight);
         setStatus("done");
+        requestAnimationFrame(() =>
+          card.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
+        );
         return;
       }
       if (json.errors) {
@@ -70,7 +77,12 @@ export function LeadSection({ kind, faqEyebrow, faqTitle, faqItems }: Props) {
   return (
     <section className="section bg-sage" id="faq" aria-labelledby={`${kind}-form-h`}>
       <div className="container lead-grid">
-        <div className="lead-card reveal" id="enquire">
+        <div
+          className="lead-card reveal"
+          id="enquire"
+          ref={card}
+          style={status === "done" ? { minHeight: doneHeight } : undefined}
+        >
           {status === "done" ? (
             <div className="lead-done" role="status">
               <span className="eyebrow">Thank you</span>

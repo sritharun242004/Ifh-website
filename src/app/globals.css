@@ -5576,7 +5576,7 @@ main {
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0;
   min-width: 0;
   border: 0;
   padding: 0;
@@ -5634,17 +5634,18 @@ main {
   flex-wrap: wrap;
   gap: 8px;
 }
-.chip {
+.field .chip {
   position: relative;
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  padding: 0 16px;
+  padding: 0 18px;
   margin: 0 !important;
   border-radius: var(--r-pill);
   border: 1px solid var(--border);
   background: var(--surface-tint);
   font-weight: 500 !important;
+  font-size: var(--fs-body-m) !important;
   color: var(--ink);
   cursor: pointer;
   transition:

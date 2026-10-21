@@ -5682,8 +5682,14 @@ main {
 .lead-card {
   scroll-margin-top: 112px;
 }
+.lead-card:has(.lead-done) {
+  display: flex;
+  align-items: center;
+}
 .lead-done {
   padding: 24px 0;
+  text-align: center;
+  width: 100%;
 }
 @media (max-width: 960px) {
   .lead-grid {

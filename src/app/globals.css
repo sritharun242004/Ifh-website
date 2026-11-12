@@ -1250,6 +1250,57 @@ h2 em,
   color: var(--muted);
 }
 
+/* ---------- Legal pages (privacy, terms) ---------- */
+.legal {
+  padding-block: 128px 88px;
+}
+.legal-inner {
+  max-width: 740px;
+  margin: 0 auto;
+}
+.legal-eyebrow {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+.legal h1 {
+  font-family: var(--font-inter-tight), var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.05;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+.legal-updated {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 36px;
+}
+.legal h2 {
+  font-family: var(--font-inter-tight), var(--font-display);
+  font-size: 1.25rem;
+  color: var(--ink);
+  margin: 36px 0 10px;
+}
+.legal p,
+.legal li {
+  line-height: 1.7;
+  color: var(--body);
+}
+.legal ul {
+  padding-left: 1.2em;
+  margin: 0 0 14px;
+}
+.legal li {
+  margin-bottom: 7px;
+}
+.legal a {
+  color: var(--green-ink);
+  text-decoration: underline;
+}
+
 /* Listing cards */
 .listing-grid {
   grid-template-columns: repeat(3, 1fr);

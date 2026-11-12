@@ -29,16 +29,16 @@ export const metadata: Metadata = {
   description:
     "Find IFH-verified long-stay homes and office spaces in one clear, broker-free property platform.",
   icons: { icon: "/assets/logo.png" },
-  metadataBase: new URL("https://ifh-website.vercel.app"),
+  metadataBase: new URL("https://ifindhouse.in"),
   openGraph: {
     type: "website",
     siteName: "IFH Connects",
     title: "IFH Connects — Verified Homes and Offices",
     description: "Find verified homes for rent and office spaces with IFH Connects.",
-    url: "https://ifh-website.vercel.app/",
+    url: "https://ifindhouse.in/",
     images: [
       {
-        url: "https://ifh-website.vercel.app/og-image.png",
+        url: "https://ifindhouse.in/og-image.png",
         width: 1738,
         height: 905,
         alt: "IFH Connects — Verified Homes and Offices",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "IFH Connects — Verified Homes and Offices",
     description: "Find verified homes for rent and office spaces with IFH Connects.",
-    images: ["https://ifh-website.vercel.app/og-image.png"],
+    images: ["https://ifindhouse.in/og-image.png"],
   },
 };
 

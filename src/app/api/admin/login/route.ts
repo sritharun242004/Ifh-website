@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { ADMIN_COOKIE, adminToken, passwordOk } from "@/landing/lib/admin-auth";
+import { ADMIN_COOKIE, adminToken, credsOk } from "@/landing/lib/admin-auth";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
-  let body: { password?: unknown };
+  let body: { email?: unknown; password?: unknown };
   try {
     body = await req.json();
   } catch {
@@ -12,8 +12,9 @@ export async function POST(req: Request) {
   }
   const token = adminToken();
   if (!token) return NextResponse.json({ error: "Admin not configured" }, { status: 503 });
-  if (typeof body.password !== "string" || !passwordOk(body.password)) {
-    return NextResponse.json({ error: "Wrong password" }, { status: 401 });
+  const email = typeof body.email === "string" ? body.email : "";
+  if (typeof body.password !== "string" || !credsOk(email, body.password)) {
+    return NextResponse.json({ error: "Wrong email or password" }, { status: 401 });
   }
   const res = NextResponse.json({ ok: true });
   res.cookies.set(ADMIN_COOKIE, token, {

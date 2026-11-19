@@ -2,6 +2,7 @@
 import { useState } from "react";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [err, setErr] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -14,7 +15,7 @@ export default function Login() {
       const res = await fetch("/api/admin/login", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ password: pw }),
+        body: JSON.stringify({ email: email.trim(), password: pw }),
       });
       if (res.ok) {
         location.reload();
@@ -33,14 +34,23 @@ export default function Login() {
     <form className="admin__login" onSubmit={submit}>
       <h1>Admin sign-in</h1>
       <input
-        type="password"
-        value={pw}
-        onChange={(e) => setPw(e.target.value)}
-        placeholder="Admin password"
+        type="email"
+        inputMode="email"
+        autoComplete="username"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="admin@ifh.com"
         autoFocus
       />
+      <input
+        type="password"
+        autoComplete="current-password"
+        value={pw}
+        onChange={(e) => setPw(e.target.value)}
+        placeholder="Password"
+      />
       {err && <p className="admin__err">{err}</p>}
-      <button type="submit" disabled={busy || !pw}>
+      <button type="submit" disabled={busy || !email || !pw}>
         {busy ? "Checking…" : "Sign in"}
       </button>
     </form>

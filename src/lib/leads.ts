@@ -1,4 +1,5 @@
 import { neon } from "@neondatabase/serverless";
+import { cleanDbUrl } from "@/lib/db-url";
 import { FORMS, type LeadKind } from "@/content/forms";
 
 export type LeadInput = Record<string, string | string[]>;
@@ -60,7 +61,7 @@ const READY = new Set<string>();
 export async function saveLead(kind: LeadKind, data: LeadInput) {
   const url = process.env.DATABASE_URL;
   if (!url) throw new Error("DATABASE_URL is not set");
-  const sql = neon(url);
+  const sql = neon(cleanDbUrl(url));
   const table = TABLE[kind];
 
   if (!READY.has(table)) {

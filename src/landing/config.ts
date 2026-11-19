@@ -10,7 +10,7 @@ export const config = {
 
   /** WhatsApp number for the help link and "Open WhatsApp" button: country code + number, digits only.
    *  TODO(Madhan): replace with the real IFH business number. */
-  whatsappNumber: "910000000000",
+  whatsappNumber: "919952990508",
 
   /** Starting value of the ₹ count-down in Section 2. */
   sampleMonthlyRent: 10000,

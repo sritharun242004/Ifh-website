@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { neon } from "@neondatabase/serverless";
+import { cleanDbUrl } from "@/lib/db-url";
 import { config } from "@/landing/config";
 import type { Step1, Step2 } from "./validate";
 
@@ -20,7 +21,7 @@ const TABLE = "owner_signups";
 
 function db() {
   const url = process.env.DATABASE_URL;
-  return url ? neon(url) : null;
+  return url ? neon(cleanDbUrl(url)) : null;
 }
 type Sql = NonNullable<ReturnType<typeof db>>;
 

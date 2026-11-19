@@ -124,7 +124,7 @@ export default function HomePage() {
       <section className="section bg-white about-section" id="about" aria-labelledby="about-h">
         <div className="container">
           <div className="about-intro reveal" id="why-ifh">
-            <Link className="eyebrow" href="/#why-ifh">
+            <Link className="eyebrow" href="/legacy#why-ifh">
               Why IFH
             </Link>
             <h2 className="hero-title about-heading" id="about-h">
@@ -219,7 +219,7 @@ export default function HomePage() {
 
       <BrokerIndex>
         <p className="band-cta reveal">
-          <Link className="btn" href="/#why-ifh">
+          <Link className="btn" href="/legacy#why-ifh">
             Why IFH <Icon name="arrow" />
           </Link>
         </p>

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Inter_Tight, Space_Mono } from "next/font/google";
 import "lenis/dist/lenis.css";
-import "./globals.css";
+import "../globals.css";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { RevealObserver } from "@/components/RevealObserver";

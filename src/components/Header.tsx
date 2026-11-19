@@ -53,7 +53,7 @@ export function Header() {
   // Same-page hash links (e.g. "Why IFH" -> /#why-ifh): close the menu, then scroll there.
   const goHash = (e: React.MouseEvent, href: string) => {
     const hash = href.split("#")[1];
-    if (!hash || pathname !== "/" || !href.startsWith("/#")) return;
+    if (!hash || pathname !== "/legacy" || !href.startsWith("/legacy#")) return;
     e.preventDefault();
     setOpen(false);
     window.setTimeout(() => {
@@ -62,7 +62,7 @@ export function Header() {
       const lenis = getLenis();
       if (lenis) lenis.scrollTo(el, { offset: -104 });
       else el.scrollIntoView({ behavior: "smooth", block: "start" });
-      history.replaceState(null, "", `/#${hash}`);
+      history.replaceState(null, "", `/legacy#${hash}`);
     }, 60);
   };
 

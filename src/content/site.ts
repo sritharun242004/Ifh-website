@@ -3,7 +3,7 @@ import type { IconName } from "@/components/Icon";
 /* Shared content used on more than one page. Page-specific copy lives in each page file. */
 
 export const NAV = [
-  { label: "Why IFH", href: "/#why-ifh" },
+  { label: "Why IFH", href: "/legacy#why-ifh" },
   { label: "Tenant", href: "/tenant" },
   { label: "Property Owner", href: "/property-owner" },
 ] as const;
@@ -44,8 +44,8 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: "IFH Connects",
     links: [
-      { label: "About us", href: "/#about" },
-      { label: "Help centre", href: "/#faq" },
+      { label: "About us", href: "/legacy#about" },
+      { label: "Help centre", href: "/legacy#faq" },
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms & Conditions", href: "/terms" },
     ],

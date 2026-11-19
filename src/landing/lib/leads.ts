@@ -53,9 +53,12 @@ async function ensureTable(sql: Sql) {
        fbclid        TEXT,
        lead_event_id TEXT,
        completed_at  TIMESTAMPTZ,
-       position      INTEGER UNIQUE
+       position      INTEGER UNIQUE,
+       status        TEXT NOT NULL DEFAULT 'new'
      )`,
   );
+  // Board stage column, added safely for any table that predates it.
+  await sql.query(`ALTER TABLE ${TABLE} ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'new'`);
   ready = true;
 }
 
@@ -177,4 +180,65 @@ export async function markWhatsAppSent(leadId: string) {
   const sql = db();
   if (!sql) return;
   await sql.query(`UPDATE ${TABLE} SET wa_sent_at = now() WHERE token = $1`, [leadId]);
+}
+
+/* ---------- admin: lead board ---------- */
+export type LeadStatus = "new" | "contacted" | "converted" | "lost";
+export const LEAD_STATUSES: LeadStatus[] = ["new", "contacted", "converted", "lost"];
+export type AdminLead = {
+  token: string;
+  name: string;
+  phone: string;
+  town: string;
+  locationText: string | null;
+  availability: string | null;
+  photoCount: number;
+  status: LeadStatus;
+  completed: boolean;
+  createdAt: string;
+};
+
+/** Every sign-up for the admin board, newest first. */
+export async function listLeads(): Promise<AdminLead[]> {
+  const sql = db();
+  if (!sql) {
+    return [...mem.values()].map((l) => ({
+      token: l.token, name: l.name, phone: l.phone, town: l.town,
+      locationText: l.locationText ?? null, availability: l.availability ?? null,
+      photoCount: l.photoCount ?? 0, status: ((l as { status?: LeadStatus }).status ?? "new"),
+      completed: l.position !== null, createdAt: new Date().toISOString(),
+    }));
+  }
+  await ensureTable(sql);
+  const rows = (await sql.query(
+    `SELECT token, name, phone, town, location_text, availability, photo_count,
+            status, completed_at, created_at
+       FROM ${TABLE}
+      ORDER BY created_at DESC`,
+  )) as Record<string, unknown>[];
+  return rows.map((r) => ({
+    token: String(r.token), name: String(r.name), phone: String(r.phone), town: String(r.town),
+    locationText: (r.location_text as string | null) ?? null,
+    availability: (r.availability as string | null) ?? null,
+    photoCount: Number(r.photo_count ?? 0),
+    status: (String(r.status || "new") as LeadStatus),
+    completed: r.completed_at != null,
+    createdAt: new Date(r.created_at as string).toISOString(),
+  }));
+}
+
+/** Move a lead to a different board column. Returns false if the token is unknown. */
+export async function setLeadStatus(token: string, status: LeadStatus): Promise<boolean> {
+  const sql = db();
+  if (!sql) {
+    const lead = [...mem.values()].find((l) => l.token === token);
+    if (lead) (lead as { status?: LeadStatus }).status = status;
+    return !!lead;
+  }
+  await ensureTable(sql);
+  const rows = (await sql.query(
+    `UPDATE ${TABLE} SET status = $2, updated_at = now() WHERE token = $1 RETURNING token`,
+    [token, status],
+  )) as unknown[];
+  return rows.length > 0;
 }

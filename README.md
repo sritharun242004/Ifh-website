@@ -51,6 +51,12 @@ Set these environment variables (in Amplify and in `.env.local` for local work):
 | `WA_TOKEN`, `WA_PHONE_NUMBER_ID`, `WA_TEMPLATE_NAME`, optional `WA_TEMPLATE_LANG` | WhatsApp Business confirmation after sign-up (`src/landing/lib/whatsapp.ts`). Skipped with a log line if they are missing. |
 | `NEXT_PUBLIC_META_PIXEL_ID` | Meta Pixel `Lead` event (`src/landing/lib/pixel.ts`). |
 
+**Before going live (security):** phone numbers are not verified, because there is no OTP yet. Until that changes:
+
+- **WhatsApp:** anyone could type a stranger's number and trigger a WhatsApp message to it. The name in the message is already reduced to letters and spaces (`safeTemplateName` in `whatsapp.ts`), so it cannot carry links. Still, add phone OTP (or only message people who message IFH first) before setting the `WA_*` variables in production.
+- **Seats:** a script could burn the 500 free seats with fake numbers. Add per-IP and per-phone rate limiting plus a CAPTCHA (for example Cloudflare Turnstile) on `/api/owner/start` and `/api/owner/complete`. Ideally, count only verified sign-ups as taken seats.
+- **Unfinished sign-ups:** step 1 with someone else's number returns that number's existing lead. A completed sign-up is never changed (the API returns only its seat number), but an unfinished one can be completed by whoever submits it. OTP before step 2 closes this.
+
 Open items:
 
 - **Photo upload:** owners can pick photos in step 2, and they are compressed on the phone, but they are not uploaded yet. See `TODO(photos)` in `OwnerForm.tsx`. Choose a file store (for example S3) and send the URLs to `/api/owner/complete`.

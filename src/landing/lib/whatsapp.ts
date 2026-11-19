@@ -5,6 +5,20 @@
 
 const GRAPH = "https://graph.facebook.com/v21.0";
 
+/** The name goes into a message sent to a number nobody has verified yet (no OTP), so it must not
+ *  be able to carry links or other text: letters (any script, incl. Tamil) and spaces only, short.
+ *  No dots, so nothing in it can turn into a link. */
+function safeTemplateName(name: string): string {
+  const clean = name
+    .normalize("NFC")
+    .replace(/[^\p{L}\p{M} ]/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 30)
+    .trim();
+  return clean.length >= 2 ? clean : "there";
+}
+
 export async function sendSignupConfirmation(phone10: string, name: string, position: number): Promise<boolean> {
   const { WA_TOKEN, WA_PHONE_NUMBER_ID, WA_TEMPLATE_NAME, WA_TEMPLATE_LANG } = process.env;
   if (!WA_TOKEN || !WA_PHONE_NUMBER_ID || !WA_TEMPLATE_NAME) {
@@ -26,7 +40,7 @@ export async function sendSignupConfirmation(phone10: string, name: string, posi
             {
               type: "body",
               parameters: [
-                { type: "text", text: name.slice(0, 60) },
+                { type: "text", text: safeTemplateName(name) },
                 { type: "text", text: String(position) },
               ],
             },

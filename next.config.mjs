@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   async redirects() {
-    return [{ source: "/why-ifh", destination: "/#why-ifh", permanent: false }];
+    return [{ source: "/why-ifh", destination: "/legacy#why-ifh", permanent: false }];
   },
 };
 

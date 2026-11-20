@@ -2,7 +2,47 @@ import type { Metadata, Viewport } from "next";
 import { Hanken_Grotesk, Manrope, Montserrat, Noto_Sans_Tamil } from "next/font/google";
 import { MetaPixel } from "@/landing/components/MetaPixel";
 import { copy } from "@/landing/copy";
+import { config } from "@/landing/config";
 import "./landing.css";
+
+/* Organization + WebSite structured data (schema.org), built from the live
+   config so it never drifts from the campaign. Helps Google's Knowledge Graph
+   and rich results. */
+const SITE_URL = "https://www.ifindhouse.in";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "iFindHouse",
+      alternateName: "IFH - I Find House",
+      url: SITE_URL,
+      logo: `${SITE_URL}/icon.png`,
+      image: `${SITE_URL}/icon.png`,
+      description: copy.meta.description,
+      slogan: "Namma Ooru App",
+      areaServed: config.towns
+        .filter((t) => t !== "Other")
+        .map((name) => ({ "@type": "City", name })),
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        telephone: `+${config.whatsappNumber}`,
+        areaServed: "IN",
+        availableLanguage: ["Tamil", "English"],
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: "iFindHouse",
+      url: SITE_URL,
+      inLanguage: "en-IN",
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+  ],
+};
 
 /* Owner landing page root layout. Separate from (site) so none of the legacy CSS/JS ships here.
    Only the headline font is preloaded. */
@@ -88,6 +128,10 @@ export default function LandingRootLayout({ children }: { children: React.ReactN
       className={`${manrope.variable} ${hanken.variable} ${montserrat.variable} ${tamil.variable}`}
     >
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         {/* A refresh always starts at the top: no restored scroll position, no jump to an old #anchor.
             Runs before the page content parses. */}
         <script

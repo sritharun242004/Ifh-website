@@ -191,27 +191,41 @@ export type AdminLead = {
   phone: string;
   town: string;
   locationText: string | null;
+  lat: number | null;
+  lng: number | null;
   availability: string | null;
+  photoUrls: string[];
   photoCount: number;
+  waConsent: boolean;
+  utm: Record<string, string>;
+  fbclid: string | null;
+  position: number | null;
   status: LeadStatus;
   completed: boolean;
   createdAt: string;
 };
 
-/** Every sign-up for the admin board, newest first. */
+const asObj = (v: unknown): Record<string, string> =>
+  v && typeof v === "object" && !Array.isArray(v) ? (v as Record<string, string>) : {};
+const asArr = (v: unknown): string[] => (Array.isArray(v) ? (v as string[]) : []);
+
+/** Every sign-up for the admin board, newest first — full detail per lead. */
 export async function listLeads(): Promise<AdminLead[]> {
   const sql = db();
   if (!sql) {
     return [...mem.values()].map((l) => ({
       token: l.token, name: l.name, phone: l.phone, town: l.town,
-      locationText: l.locationText ?? null, availability: l.availability ?? null,
-      photoCount: l.photoCount ?? 0, status: ((l as { status?: LeadStatus }).status ?? "new"),
+      locationText: l.locationText ?? null, lat: l.lat ?? null, lng: l.lng ?? null,
+      availability: l.availability ?? null, photoUrls: [], photoCount: l.photoCount ?? 0,
+      waConsent: Boolean(l.waConsent), utm: l.utm ?? {}, fbclid: l.fbclid ?? null,
+      position: l.position, status: ((l as { status?: LeadStatus }).status ?? "new"),
       completed: l.position !== null, createdAt: new Date().toISOString(),
     }));
   }
   await ensureTable(sql);
   const rows = (await sql.query(
-    `SELECT token, name, phone, town, location_text, availability, photo_count,
+    `SELECT token, name, phone, town, location_text, lat, lng, availability,
+            photo_urls, photo_count, wa_consent, utm, fbclid, position,
             status, completed_at, created_at
        FROM ${TABLE}
       ORDER BY created_at DESC`,
@@ -219,8 +233,15 @@ export async function listLeads(): Promise<AdminLead[]> {
   return rows.map((r) => ({
     token: String(r.token), name: String(r.name), phone: String(r.phone), town: String(r.town),
     locationText: (r.location_text as string | null) ?? null,
+    lat: r.lat == null ? null : Number(r.lat),
+    lng: r.lng == null ? null : Number(r.lng),
     availability: (r.availability as string | null) ?? null,
+    photoUrls: asArr(r.photo_urls),
     photoCount: Number(r.photo_count ?? 0),
+    waConsent: Boolean(r.wa_consent),
+    utm: asObj(r.utm),
+    fbclid: (r.fbclid as string | null) ?? null,
+    position: r.position == null ? null : Number(r.position),
     status: (String(r.status || "new") as LeadStatus),
     completed: r.completed_at != null,
     createdAt: new Date(r.created_at as string).toISOString(),

@@ -8,8 +8,15 @@ type Lead = {
   phone: string;
   town: string;
   locationText: string | null;
+  lat: number | null;
+  lng: number | null;
   availability: string | null;
+  photoUrls: string[];
   photoCount: number;
+  waConsent: boolean;
+  utm: Record<string, string>;
+  fbclid: string | null;
+  position: number | null;
   status: Status;
   completed: boolean;
   createdAt: string;
@@ -22,9 +29,16 @@ const COLUMNS: { key: Status; label: string }[] = [
   { key: "lost", label: "Lost" },
 ];
 
+// Stored phone is 10 digits; present it as an Indian number.
+const intl = (p: string) => (p.length === 10 ? `91${p}` : p);
+const pretty = (p: string) => (p.length === 10 ? `+91 ${p.slice(0, 5)} ${p.slice(5)}` : `+${p}`);
+const fmtDate = (s: string) =>
+  new Date(s).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" });
+
 export default function Board() {
   const [leads, setLeads] = useState<Lead[] | null>(null);
   const [err, setErr] = useState<string | null>(null);
+  const [selected, setSelected] = useState<Lead | null>(null);
 
   async function load() {
     try {
@@ -44,6 +58,7 @@ export default function Board() {
 
   async function move(token: string, status: Status) {
     setLeads((cur) => cur?.map((l) => (l.token === token ? { ...l, status } : l)) ?? cur);
+    setSelected((s) => (s && s.token === token ? { ...s, status } : s));
     try {
       await fetch("/api/admin/leads", {
         method: "PATCH",
@@ -76,19 +91,32 @@ export default function Board() {
               </h2>
               <div className="board__list">
                 {items.map((l) => (
-                  <article className="card" key={l.token}>
+                  <article
+                    className="card"
+                    key={l.token}
+                    onClick={() => setSelected(l)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === "Enter" && setSelected(l)}
+                  >
                     <div className="card__name">{l.name}</div>
-                    <a className="card__phone" href={`tel:+${l.phone}`}>
-                      +{l.phone}
-                    </a>
+                    <div className="card__phone">{pretty(l.phone)}</div>
                     <div className="card__meta">
                       {l.town}
                       {l.locationText ? ` · ${l.locationText}` : ""}
                     </div>
-                    {l.completed && <span className="card__tag">Completed signup</span>}
+                    <div className="card__badges">
+                      {l.completed ? (
+                        <span className="card__tag">Seat #{l.position}</span>
+                      ) : (
+                        <span className="card__tag card__tag--draft">Step 1 only</span>
+                      )}
+                      {l.photoCount > 0 && <span className="card__tag card__tag--ph">{l.photoCount} photos</span>}
+                    </div>
                     <select
                       className="card__move"
                       value={l.status}
+                      onClick={(e) => e.stopPropagation()}
                       onChange={(e) => move(l.token, e.target.value as Status)}
                     >
                       {COLUMNS.map((c) => (
@@ -105,6 +133,101 @@ export default function Board() {
           );
         })}
       </div>
+
+      {selected && (
+        <div className="lead" onClick={() => setSelected(null)}>
+          <div className="lead__panel" onClick={(e) => e.stopPropagation()}>
+            <button className="lead__close" onClick={() => setSelected(null)} aria-label="Close">
+              ×
+            </button>
+            <h2 className="lead__name">{selected.name}</h2>
+            <div className="lead__actions">
+              <a className="lead__btn" href={`tel:+${intl(selected.phone)}`}>
+                Call
+              </a>
+              <a
+                className="lead__btn lead__btn--wa"
+                href={`https://wa.me/${intl(selected.phone)}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                WhatsApp
+              </a>
+              <select
+                className="lead__status"
+                value={selected.status}
+                onChange={(e) => move(selected.token, e.target.value as Status)}
+              >
+                {COLUMNS.map((c) => (
+                  <option key={c.key} value={c.key}>
+                    {c.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <dl className="lead__grid">
+              <dt>Phone</dt>
+              <dd>{pretty(selected.phone)}</dd>
+              <dt>Town</dt>
+              <dd>{selected.town}</dd>
+              <dt>Location</dt>
+              <dd>
+                {selected.locationText || "—"}
+                {selected.lat != null && selected.lng != null && (
+                  <>
+                    {" "}
+                    <a
+                      href={`https://www.google.com/maps?q=${selected.lat},${selected.lng}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      map ↗
+                    </a>
+                  </>
+                )}
+              </dd>
+              <dt>Available</dt>
+              <dd>{selected.availability || "—"}</dd>
+              <dt>WhatsApp consent</dt>
+              <dd>{selected.waConsent ? "Yes" : "No"}</dd>
+              <dt>Seat</dt>
+              <dd>{selected.completed ? `#${selected.position} (completed)` : "Step 1 only — no seat yet"}</dd>
+              <dt>Signed up</dt>
+              <dd>{fmtDate(selected.createdAt)}</dd>
+              {(Object.keys(selected.utm).length > 0 || selected.fbclid) && (
+                <>
+                  <dt>Source</dt>
+                  <dd>
+                    {Object.entries(selected.utm)
+                      .map(([k, v]) => `${k}=${v}`)
+                      .join(", ") || ""}
+                    {selected.fbclid ? ` · fbclid` : ""}
+                  </dd>
+                </>
+              )}
+            </dl>
+
+            <div className="lead__photos">
+              <div className="lead__photos-h">Photos ({selected.photoUrls.length})</div>
+              {selected.photoUrls.length === 0 ? (
+                <p className="admin__note" style={{ padding: "6px 0" }}>
+                  No photos uploaded.
+                </p>
+              ) : (
+                <div className="lead__thumbs">
+                  {selected.photoUrls.map((u, i) => (
+                    <a key={i} href={u} target="_blank" rel="noreferrer">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={u} alt={`Photo ${i + 1}`} />
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

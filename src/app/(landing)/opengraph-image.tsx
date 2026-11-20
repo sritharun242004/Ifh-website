@@ -1,16 +1,24 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 /* Dynamic share card for the owner landing page (WhatsApp / X / Facebook).
-   Rendered in code so it always matches the live campaign copy — no static
-   asset to keep in sync. nodejs runtime so it works on the Amplify adapter. */
+   Uses the REAL brand mark (public/assets/logo.png) and the site's exact palette
+   (pine + lime from landing.css), rendered in code so it always matches the
+   live campaign copy. nodejs runtime so the logo file can be read at build. */
 export const runtime = "nodejs";
 export const alt = "IFH — Post your house free. Zero commission. First 500 owners free.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const LIME = "#9fe870";
-const INK = "#0b3d2e";
-const INK_SOFT = "#38513f";
+// Site tokens (landing.css :root)
+const PINE = "#14453b";
+const LIME = "#8eea5c";
+const MUTED = "#4f6a5f";
+
+const LOGO = `data:image/png;base64,${readFileSync(
+  join(process.cwd(), "public/assets/logo.png"),
+).toString("base64")}`;
 
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -23,36 +31,17 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           background: "#ffffff",
-          padding: "64px 72px",
+          padding: "60px 72px",
           fontFamily: "sans-serif",
         }}
       >
-        {/* brand lockup */}
+        {/* brand lockup — the real smiley-house mark */}
         <div style={{ display: "flex", alignItems: "center" }}>
-          <div
-            style={{
-              width: 112,
-              height: 112,
-              borderRadius: 30,
-              background: LIME,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <svg width="78" height="78" viewBox="0 0 40 40">
-              <path
-                d="M8 19 20 9l12 10v12a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1z"
-                fill="none"
-                stroke="#0e0f0c"
-                strokeWidth="2.6"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={LOGO} width={176} height={116} alt="" />
           <div style={{ display: "flex", flexDirection: "column", marginLeft: 26 }}>
-            <div style={{ fontSize: 54, fontWeight: 700, color: INK, lineHeight: 1 }}>IFH</div>
-            <div style={{ fontSize: 24, color: INK_SOFT, marginTop: 8 }}>
+            <div style={{ fontSize: 54, fontWeight: 800, color: PINE, lineHeight: 1 }}>IFH</div>
+            <div style={{ fontSize: 24, color: MUTED, marginTop: 8 }}>
               I Find House &middot; Namma Ooru App
             </div>
           </div>
@@ -60,10 +49,10 @@ export default function OpengraphImage() {
 
         {/* headline */}
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 82, fontWeight: 700, color: INK, lineHeight: 1.04, letterSpacing: -1 }}>
+          <div style={{ fontSize: 84, fontWeight: 800, color: PINE, lineHeight: 1.03, letterSpacing: -1 }}>
             Post your house — FREE
           </div>
-          <div style={{ fontSize: 34, color: INK_SOFT, marginTop: 22, maxWidth: 1000 }}>
+          <div style={{ fontSize: 34, color: MUTED, marginTop: 22, maxWidth: 1000 }}>
             Zero commission. Only verified tenants see your number.
           </div>
         </div>
@@ -75,7 +64,7 @@ export default function OpengraphImage() {
               display: "flex",
               alignItems: "center",
               background: LIME,
-              color: INK,
+              color: PINE,
               fontSize: 30,
               fontWeight: 700,
               padding: "16px 34px",
@@ -84,7 +73,7 @@ export default function OpengraphImage() {
           >
             First 500 owners post free
           </div>
-          <div style={{ fontSize: 30, fontWeight: 700, color: INK }}>www.ifindhouse.in</div>
+          <div style={{ fontSize: 30, fontWeight: 700, color: PINE }}>www.ifindhouse.in</div>
         </div>
       </div>
     ),

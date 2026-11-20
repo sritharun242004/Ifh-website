@@ -7,6 +7,10 @@ frontend:
         - pnpm install --frozen-lockfile
     build:
       commands:
+        # Amplify provides console env vars to the BUILD environment but NOT to the
+        # Next.js SSR runtime. Persist the server-side ones into .env.production so
+        # Next loads them at request time (DB connection + admin auth).
+        - env | grep -E '^(DATABASE_URL|ADMIN_EMAIL|ADMIN_PASSWORD|NEXT_PUBLIC_META_PIXEL_ID)=' >> .env.production || true
         - pnpm run build
   artifacts:
     baseDirectory: .next

@@ -8,6 +8,10 @@ export const dynamic = "force-dynamic";
 export default function AdminPage() {
   const token = adminToken();
   const authed = !!token && cookies().get(ADMIN_COOKIE)?.value === token;
+
+  // Signed out: the login is its own centered screen.
+  if (token != null && !authed) return <Login />;
+
   return (
     <main className="admin">
       <header className="admin__bar">
@@ -20,10 +24,8 @@ export default function AdminPage() {
         <p className="admin__note">
           Admin isn&rsquo;t configured. Set <code>ADMIN_PASSWORD</code> in the environment and redeploy.
         </p>
-      ) : authed ? (
-        <Board />
       ) : (
-        <Login />
+        <Board />
       )}
     </main>
   );

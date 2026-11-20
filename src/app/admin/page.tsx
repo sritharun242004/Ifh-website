@@ -11,8 +11,10 @@ export default function AdminPage() {
   return (
     <main className="admin">
       <header className="admin__bar">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/logo.png" alt="" width={38} height={25} style={{ alignSelf: "center" }} />
         <strong>iFindHouse</strong>
-        <span>Owner leads</span>
+        <span>Admin</span>
       </header>
       {token == null ? (
         <p className="admin__note">
